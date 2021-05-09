@@ -12,17 +12,19 @@ import javax.persistence.*;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "bl_image")
+@Table(name = "bl_team")
 @EntityListeners(AuditListener.class)
-public class Image {
+public class Team {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_id_seq")
-  @SequenceGenerator(name = "image_id_seq", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "team_id_seq")
+  @SequenceGenerator(name = "team_id_seq", allocationSize = 1)
   private Long id;
 
-  private String link;
-  private String description;
+  private String name;
+
+  @ManyToOne
+  private User teamLead;
 
   @Embedded
   private Audit audit;

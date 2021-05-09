@@ -24,6 +24,9 @@ public class Post {
   private Long id;
 
   private String title;
+  private String subtitle;
+
+  @Lob
   private String content;
 
   @Enumerated(EnumType.STRING)
@@ -32,7 +35,7 @@ public class Post {
   @ManyToOne
   private Category category;
 
-  @OneToMany
+  @OneToMany(fetch = FetchType.EAGER)
   @JoinColumn(name = "post_id")
   private Set<Image> images;
 

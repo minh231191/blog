@@ -23,6 +23,7 @@ public class Category {
   private Long id;
 
   private String name;
+  private String description;
 
   @ManyToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "parent_id")

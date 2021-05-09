@@ -25,7 +25,7 @@ public class Comment {
   @Enumerated(EnumType.STRING)
   private CommentStatus status;
 
-  private String by;
+  private String commenter;
   private String content;
 
   @ManyToOne(fetch = FetchType.LAZY)

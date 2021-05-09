@@ -33,6 +33,9 @@ public class User {
   )
   private Set<Role> roles;
 
+  @ManyToOne
+  private Team team;
+
   @Embedded
   private Audit audit;
 
