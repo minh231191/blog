@@ -46,7 +46,7 @@ public class Post {
   )
   private Set<Tag> tags;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToOne
   private User user;
 
   @Embedded

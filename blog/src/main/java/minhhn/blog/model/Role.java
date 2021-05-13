@@ -1,5 +1,6 @@
 package minhhn.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,24 +14,20 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
-@Table(name = "bl_category")
+@Table(name = "bl_role")
 @EntityListeners(AuditListener.class)
-public class Category {
+public class Role {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_id_seq")
-  @SequenceGenerator(name = "category_id_seq", allocationSize = 1)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "role_id_seq")
+  @SequenceGenerator(name = "role_id_seq", allocationSize = 1)
   private Long id;
 
   private String name;
-  private String description;
 
-  @ManyToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "parent_id")
-  private Category parent;
-
-  @OneToMany(mappedBy = "parent")
-  private Set<Category> categories;
+  @ManyToMany(mappedBy = "roles")
+  @JsonIgnore
+  private Set<User> users;
 
   @Embedded
   private Audit audit;

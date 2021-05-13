@@ -1,5 +1,6 @@
 package minhhn.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -28,7 +29,8 @@ public class Comment {
   private String commenter;
   private String content;
 
-  @ManyToOne(fetch = FetchType.LAZY)
+  @JsonIgnore
+  @ManyToOne
   private Post post;
 
   @Embedded
