@@ -35,7 +35,7 @@ public class Post {
   @ManyToOne
   private Category category;
 
-  @OneToMany(fetch = FetchType.EAGER)
+  @OneToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "post_id")
   private Set<Image> images;
 
