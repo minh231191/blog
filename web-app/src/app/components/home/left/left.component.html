@@ -1,0 +1,11 @@
+<h2>Category:</h2>
+<mat-list>
+  <ng-container *ngFor="let category of categories">
+      <mat-list-item (click)="navigateToCategoryPost(category)">{{ category.name }}</mat-list-item>
+      <mat-list style="margin-left:30px;">
+          <div *ngFor="let subCategory of category.categories">
+              <mat-list-item (click)="navigateToCategoryPost(subCategory)" >{{ subCategory.name }}</mat-list-item>
+          </div>
+      </mat-list>
+  </ng-container>
+</mat-list>

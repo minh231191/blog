@@ -8,4 +8,8 @@ public interface CategoryRepositoryCustom {
 
   List<Category> getAllCategories();
 
+  Category findCategoryById(Long id);
+
+  List<Category> getAvailableSubCategories();
+
 }

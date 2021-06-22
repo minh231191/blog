@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import minhhn.blog.enums.PostStatus;
 import minhhn.blog.model.base.Audit;
-import minhhn.blog.model.base.AuditListener;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,7 +15,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Table(name = "bl_post")
-@EntityListeners(AuditListener.class)
+@EntityListeners(AuditingEntityListener.class)
 public class Post {
 
   @Id

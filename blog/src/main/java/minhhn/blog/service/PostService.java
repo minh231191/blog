@@ -9,12 +9,13 @@ import minhhn.blog.mapper.PostDisplayMapper;
 import minhhn.blog.mapper.PostMapper;
 import minhhn.blog.model.Post;
 import minhhn.blog.repository.PostRepository;
-import minhhn.blog.specification.PostSpecification;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static minhhn.blog.specification.PostSpecification.*;
 
 @Service
 public class PostService {
@@ -52,23 +53,23 @@ public class PostService {
   }
 
   public boolean existsByIdLowerThan(Long id, PostFilter postFilter) {
-    Specification<Post> postSpecification = Specification.where(PostSpecification.idLessThan(id));
+    Specification<Post> postSpecification = Specification.where(idLessThan(id));
     if (postFilter.getCategoryId() != null) {
-      postSpecification = postSpecification.and(Specification.where(PostSpecification.categoryIdEqual(postFilter.getCategoryId())));
+      postSpecification = postSpecification.and(Specification.where(categoryIdEqual(postFilter.getCategoryId())));
     }
     if (postFilter.getUserId() != null) {
-      postSpecification = postSpecification.and(Specification.where(PostSpecification.userIdEqual(postFilter.getUserId())));
+      postSpecification = postSpecification.and(Specification.where(userIdEqual(postFilter.getUserId())));
     }
     return postRepository.count(postSpecification) > 0;
   }
 
   public boolean existsByIdGreaterThan(Long id, PostFilter postFilter) {
-    Specification<Post> postSpecification = Specification.where(PostSpecification.idGreaterThan(id));
+    Specification<Post> postSpecification = Specification.where(idGreaterThan(id));
     if (postFilter.getCategoryId() != null) {
-      postSpecification = postSpecification.and(Specification.where(PostSpecification.categoryIdEqual(postFilter.getCategoryId())));
+      postSpecification = postSpecification.and(Specification.where(categoryIdEqual(postFilter.getCategoryId())));
     }
     if (postFilter.getUserId() != null) {
-      postSpecification = postSpecification.and(Specification.where(PostSpecification.userIdEqual(postFilter.getUserId())));
+      postSpecification = postSpecification.and(Specification.where(userIdEqual(postFilter.getUserId())));
     }
     return postRepository.count(postSpecification) > 0;
   }

@@ -2,6 +2,8 @@ package minhhn.blog.dto;
 
 import lombok.Data;
 
+import java.time.Instant;
+
 @Data
 public class PostDto {
 
@@ -10,5 +12,10 @@ public class PostDto {
   private String subtitle;
   private String content;
   private String status;
+  private String author;
+  private Long authorId;
+  private String categoryName;
+  private Long categoryId;
+  private Instant createdDate;
 
 }

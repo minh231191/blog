@@ -1,0 +1,24 @@
+<mat-toolbar>
+  <a mat-button [routerLink]='["/home"]'>
+    <span>Blog</span>
+  </a>
+  <div>
+    <a mat-button *ngFor="let category of categories">{{category.name}}</a>
+  </div>
+</mat-toolbar>
+
+<div class="container"
+     fxLayout
+     fxLayoutAlign="center"
+>
+  <div fxFlex="20%">
+    <app-left [categories] = "categories"></app-left>
+  </div>
+  <div fxFlex="60%">
+    <router-outlet></router-outlet>
+  </div>
+  <div fxFlex="20%">
+    <app-right></app-right>
+  </div>
+</div>
+

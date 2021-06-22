@@ -1,12 +1,11 @@
 package minhhn.blog.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import minhhn.blog.enums.CategoryStatus;
 import minhhn.blog.model.base.Audit;
-import minhhn.blog.model.base.AuditListener;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -17,7 +16,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @Table(name = "bl_category")
-@EntityListeners(AuditListener.class)
+@EntityListeners(AuditingEntityListener.class)
 public class Category {
 
   @Id
@@ -28,13 +27,14 @@ public class Category {
   private String name;
   private String description;
 
+  @Enumerated(EnumType.STRING)
+  private CategoryStatus status;
+
   @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
   @JoinColumn(name = "parent_id")
-  @JsonManagedReference
   private Category parent;
 
-  @OneToMany(mappedBy = "parent")
-  @JsonBackReference
+  @OneToMany(mappedBy = "parent", cascade = {CascadeType.MERGE})
   private Set<Category> categories;
 
   @Embedded

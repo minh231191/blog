@@ -1,0 +1,11 @@
+{
+    "/blog": {
+        "target": "http://localhost:8081/api",
+        "sercue": false,
+        "changeOrigin": true,
+        "logLevel": "debug",
+        "pathRewrite": {
+            "^/blog": ""
+        }
+    }
+}

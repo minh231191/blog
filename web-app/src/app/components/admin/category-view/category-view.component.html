@@ -1,0 +1,11 @@
+<mat-list>
+  <mat-list-item> Name: {{ category.name }} </mat-list-item>
+  <mat-list-item> Description: {{ category.description }} </mat-list-item>
+  <mat-list-item> Status: {{ category.status }} </mat-list-item>
+  <mat-list-item> Created By: {{ category.createdBy }} </mat-list-item>
+  <mat-list-item> Created Date: {{ category.createdDate }} </mat-list-item>
+ </mat-list>
+ <mat-list>
+  <mat-list-item>Sub Categories:</mat-list-item>
+  <mat-list-item *ngFor="let category of category.categories"> - {{category.name}} </mat-list-item>
+</mat-list>
