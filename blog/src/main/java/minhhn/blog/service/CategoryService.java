@@ -27,7 +27,7 @@ public class CategoryService {
   public List<CategoryDisplayDto> findAll() {
     List<Category> categories = this.categoryRepository.getAllCategories();
     categories.sort(Comparator.comparingLong(Category::getId));
-    return categoryDisplayMapper.toDtoList(categories);
+    return this.categoryDisplayMapper.toDtoList(categories);
   }
 
   public List<CategoryDisplayDto> findAllWithSub() {
@@ -40,41 +40,41 @@ public class CategoryService {
       }
     }
     return categoryMap.values().stream().map(c -> {
-      CategoryDisplayDto dto = categoryDisplayMapper.toDto(c);
-      dto.setCategories(c.getCategories().stream().map(categoryDisplayMapper::toDto).collect(Collectors.toList()));
+      CategoryDisplayDto dto = this.categoryDisplayMapper.toDto(c);
+      dto.setCategories(c.getCategories().stream().map(this.categoryDisplayMapper::toDto).collect(Collectors.toList()));
       return dto;
     }).collect(Collectors.toList());
   }
 
   public CategoryDto findById(Long id) {
-    Category category = categoryRepository.findById(id).orElseThrow() ;
+    Category category = this.categoryRepository.findById(id).orElseThrow() ;
 
-    return categoryMapper.toDto(category);
+    return this.categoryMapper.toDto(category);
   }
 
   public List<CategoryDto> findAvailableSubCategories() {
-    return categoryMapper.toDtoList(categoryRepository.getAvailableSubCategories());
+    return this.categoryMapper.toDtoList(categoryRepository.getAvailableSubCategories());
   }
 
   public List<CategoryDto> findAvailableSubCategories(Long id) {
-    Category category = categoryRepository.findCategoryById(id);
+    Category category = this.categoryRepository.findCategoryById(id);
     if (this.isNotParentCategory(category)) {
       return new ArrayList<>();
     }
-    List<Category> categories = categoryRepository.getAvailableSubCategories();
+    List<Category> categories = this.categoryRepository.getAvailableSubCategories();
     categories = categories.stream().filter(c -> !c.getId().equals(id)).collect(Collectors.toList());
     return categoryMapper.toDtoList(categories);
   }
 
   public CategoryDto createCategory(CategoryDto categoryDto) {
-    Category saved = categoryRepository.save(categoryMapper.toEntity(categoryDto));
+    Category saved = this.categoryRepository.save(categoryMapper.toEntity(categoryDto));
     saved.getCategories().forEach(sub -> sub.setParent(saved));
-    return categoryMapper.toDto(categoryRepository.save(saved));
+    return categoryMapper.toDto(this.categoryRepository.save(saved));
   }
 
   public CategoryDto updateCategory(CategoryDto categoryDto) {
-    Category category = categoryMapper.toEntity(categoryDto);
-    Category toBeUpdated = categoryRepository.findById(categoryDto.getId()).orElseThrow();
+    Category category = this.categoryMapper.toEntity(categoryDto);
+    Category toBeUpdated = this.categoryRepository.findById(categoryDto.getId()).orElseThrow();
     toBeUpdated.setName(category.getName());
     toBeUpdated.setDescription(category.getDescription());
     toBeUpdated.setStatus(category.getStatus());
@@ -82,7 +82,7 @@ public class CategoryService {
     toBeUpdated.getCategories().clear();
     toBeUpdated.getCategories().addAll(category.getCategories());
     toBeUpdated.getCategories().forEach(c -> c.setParent(toBeUpdated));
-    return categoryMapper.toDto(categoryRepository.save(toBeUpdated));
+    return this.categoryMapper.toDto(categoryRepository.save(toBeUpdated));
   }
 
   private boolean isNotParentCategory(Category category) {

@@ -3,7 +3,7 @@ package minhhn.blog.dto;
 import lombok.Data;
 import minhhn.blog.enums.CategoryStatus;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class CategoryDisplayDto {
   private String name;
   private CategoryStatus status;
   private String createdBy;
-  private Instant createdDate;
+  private LocalDateTime createdDate;
   private List<CategoryDisplayDto> categories = new ArrayList<>();
 
 }

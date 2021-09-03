@@ -52,4 +52,14 @@ public class Post {
   @Embedded
   private Audit audit;
 
+  public void addTag(Tag tag) {
+    tags.add(tag);
+    tag.getPosts().add(this);
+  }
+
+  public void removeTag(Tag tag) {
+    tags.remove(tag);
+    tag.getPosts().remove(this);
+  }
+
 }

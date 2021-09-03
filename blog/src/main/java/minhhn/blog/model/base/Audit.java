@@ -8,7 +8,9 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.Embeddable;
+import java.sql.Timestamp;
 import java.time.Instant;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,13 +18,13 @@ import java.time.Instant;
 public class Audit {
 
   @CreatedDate
-  private Instant createdDate;
+  private LocalDateTime createdDate;
 
   @CreatedBy
   private String createdBy;
 
   @LastModifiedDate
-  private Instant updatedDate;
+  private LocalDateTime updatedDate;
 
   @LastModifiedBy
   private String updatedBy;

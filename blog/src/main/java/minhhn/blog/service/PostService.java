@@ -5,10 +5,14 @@ import minhhn.blog.dto.PostDto;
 import minhhn.blog.dto.PostFilter;
 import minhhn.blog.dto.PostPagedDto;
 import minhhn.blog.enums.PaginationDirection;
+import minhhn.blog.enums.PostStatus;
 import minhhn.blog.mapper.PostDisplayMapper;
 import minhhn.blog.mapper.PostMapper;
+import minhhn.blog.model.Category;
 import minhhn.blog.model.Post;
+import minhhn.blog.model.base.Audit;
 import minhhn.blog.repository.PostRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +23,8 @@ import static minhhn.blog.specification.PostSpecification.*;
 
 @Service
 public class PostService {
+
+  private static final int POST_PER_PAGE = 10;
 
   private final PostRepository postRepository;
   private final PostMapper postMapper;
@@ -31,23 +37,23 @@ public class PostService {
   }
 
   public PostDto findById(Long id) {
-    return postMapper.toDto(postRepository.findById(id).orElseThrow());
+    return postMapper.toDto(this.postRepository.findById(id).orElseThrow());
   }
 
   public List<PostDisplayDto> getPostsList(Long id, LocalDateTime date, PaginationDirection direction, PostFilter filter) {
-    return postDisplayMapper.toDtoList(postRepository.getPostPaged(5, id, date, direction, filter));
+    return postDisplayMapper.toDtoList(this.postRepository.getPostPaged(POST_PER_PAGE, id, date, direction, filter));
   }
 
   public PostPagedDto getPostsPaged(Long id, LocalDateTime date, PaginationDirection direction, PostFilter filter) {
     PostPagedDto postPagedDto = new PostPagedDto();
     List<PostDisplayDto> posts = this.getPostsList(id, date, direction, filter);
     postPagedDto.setPosts(posts);
-    postPagedDto.setFirstPage(!this.existsByIdLowerThan(posts.get(0).getId(), filter));
+    postPagedDto.setFirstPage(!this.existsByIdGreaterThan(posts.get(0).getId(), filter));
     int postSize = posts.size();
-    if (postSize < 5) {
+    if (postSize < POST_PER_PAGE) {
       postPagedDto.setLastPage(true);
     } else {
-      postPagedDto.setLastPage(!this.existsByIdGreaterThan(posts.get(postSize- 1).getId(), filter));
+      postPagedDto.setLastPage(!this.existsByIdLowerThan(posts.get(postSize- 1).getId(), filter));
     }
     return postPagedDto;
   }
@@ -60,7 +66,7 @@ public class PostService {
     if (postFilter.getUserId() != null) {
       postSpecification = postSpecification.and(Specification.where(userIdEqual(postFilter.getUserId())));
     }
-    return postRepository.count(postSpecification) > 0;
+    return this.postRepository.count(postSpecification) > 0;
   }
 
   public boolean existsByIdGreaterThan(Long id, PostFilter postFilter) {
@@ -71,7 +77,28 @@ public class PostService {
     if (postFilter.getUserId() != null) {
       postSpecification = postSpecification.and(Specification.where(userIdEqual(postFilter.getUserId())));
     }
-    return postRepository.count(postSpecification) > 0;
+    return this.postRepository.count(postSpecification) > 0;
+  }
+
+  public PostDto updatePost(PostDto postDto) {
+    Post fromDb = this.postRepository.getOne(postDto.getId());
+    fromDb.setStatus(PostStatus.valueOf(postDto.getStatus()));
+    fromDb.setTitle(postDto.getTitle());
+    fromDb.setSubtitle(postDto.getSubtitle());
+    fromDb.setContent(postDto.getContent());
+    return this.postMapper.toDto(this.postRepository.save(fromDb));
+  }
+  
+  public PostDto createPost(PostDto postDto) {
+    Post toBeSaved = this.postMapper.toEntity(postDto);
+    if (postDto.getCategoryId() != null) {
+      Category category = new Category();
+      category.setId(postDto.getCategoryId());
+      toBeSaved.setCategory(category);
+    }
+    toBeSaved.setStatus(PostStatus.APPROVED);
+    toBeSaved.setAudit(new Audit());
+    return this.postMapper.toDto(this.postRepository.save(toBeSaved));
   }
 
 }
