@@ -1,8 +1,8 @@
+import { BaseModel } from './BaseModel';
 import { CategoryStatus } from './CategoryStatus';
 
-export interface Category {
+export interface Category extends BaseModel {
 
-  id: number;
   name: string;
   description: string;
   status: CategoryStatus;

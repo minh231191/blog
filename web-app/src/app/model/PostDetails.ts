@@ -1,3 +1,4 @@
+import { TagDisplay } from './TagDisplay';
 import { PostStatus } from './PostStatus';
 export interface PostDetails {
   id: number;
@@ -10,4 +11,5 @@ export interface PostDetails {
   categoryName: string;
   categoryId: number;
   createdDate: Date;
+  tags: TagDisplay[];
 }

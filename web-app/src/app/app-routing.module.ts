@@ -1,17 +1,24 @@
-import { UserAdminComponent } from './components/admin/user-admin/user-admin.component';
-import { TeamAdminComponent } from './components/admin/team-admin/team-admin.component';
-import { CommentAdminComponent } from './components/admin/comment-admin/comment-admin.component';
-import { TagAdminComponent } from './components/admin/tag-admin/tag-admin.component';
-import { PostAdminComponent } from './components/admin/post-admin/post-admin.component';
-import { CategoryAdminComponent } from './components/admin/category-admin/category-admin.component';
-import { HomeAdminComponent } from './components/admin/home-admin/home-admin.component';
-import { MainAdminComponent } from './components/admin/main-admin/main-admin.component';
+import { RegisterComponent } from './components/user/register/register.component';
+import { CkeditorComponent } from './components/ckeditor/ckeditor.component';
+import { UserAdminComponent } from './components/admin/user/user-admin/user-admin.component';
+import { TeamAdminComponent } from './components/admin/team/team-admin/team-admin.component';
+import { CommentAdminComponent } from './components/admin/comment/comment-admin/comment-admin.component';
+import { TagAdminComponent } from './components/admin/tag/tag-admin/tag-admin.component';
+import { PostAdminComponent } from './components/admin/post/post-admin/post-admin.component';
+import { CategoryAdminComponent } from './components/admin/category/category-admin/category-admin.component';
+import { HomeAdminComponent } from './components/admin/home/home-admin/home-admin.component';
 import { PostDetailComponent } from './components/post/post-detail/post-detail.component';
 import { PostCategoryComponent } from './components/post/post-category/post-category.component';
 import { MainComponent } from './components/home/main/main.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home/home.component';
+import { LoginComponent } from './components/user/login/login.component';
+import { AuthGuard } from './services/auth-guard';
+import { PostCreateComponent } from './components/admin/post/post-create/post-create.component';
+import { PostEditComponent } from './components/admin/post/post-edit/post-edit.component';
+import { PostViewComponent } from './components/admin/post/post-view/post-view.component';
+import { MainAdminComponent } from './components/admin/home/main-admin/main-admin.component';
 
 const routes: Routes = [
   {
@@ -35,36 +42,61 @@ const routes: Routes = [
   {
     path: 'admin',
     component: HomeAdminComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'home',
         component: MainAdminComponent
       },
       {
-        path: 'category',
+        path: 'categories',
         component: CategoryAdminComponent
       },
       {
-        path: 'post',
+        path: 'posts',
         component: PostAdminComponent
       },
       {
-        path: 'tag',
+        path: 'tags',
         component: TagAdminComponent
       },
       {
-        path: 'comment',
+        path: 'comments',
         component: CommentAdminComponent
       },
       {
-        path: 'team',
+        path: 'teams',
         component: TeamAdminComponent
       },
       {
-        path: 'user',
+        path: 'users',
         component: UserAdminComponent
+      },
+      {
+        path: 'posts/create',
+        component: PostCreateComponent
+      },
+      {
+        path: 'posts/:postId',
+        component: PostViewComponent
+      },
+      {
+        path: 'posts/edit/:postId',
+        component: PostEditComponent
       }
     ]
+  },
+  {
+    path: 'editor',
+    component: CkeditorComponent
+  },
+  {
+    path: 'register',
+    component: RegisterComponent
+  },
+  {
+    path: 'login',
+    component: LoginComponent
   }
 ];
 

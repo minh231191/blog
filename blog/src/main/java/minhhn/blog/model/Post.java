@@ -53,12 +53,12 @@ public class Post {
   private Audit audit;
 
   public void addTag(Tag tag) {
-    tags.add(tag);
+    this.tags.add(tag);
     tag.getPosts().add(this);
   }
 
   public void removeTag(Tag tag) {
-    tags.remove(tag);
+    this.tags.remove(tag);
     tag.getPosts().remove(this);
   }
 

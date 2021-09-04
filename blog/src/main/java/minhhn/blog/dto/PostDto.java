@@ -3,6 +3,7 @@ package minhhn.blog.dto;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -18,6 +19,6 @@ public class PostDto {
   private String categoryName;
   private Long categoryId;
   private LocalDateTime createdDate;
-  private Set<TagDto> tags;
+  private List<TagDto> tags;
 
 }

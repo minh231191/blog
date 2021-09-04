@@ -7,6 +7,7 @@ import minhhn.blog.model.base.Audit;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class Tag {
   private String name;
 
   @ManyToMany(mappedBy = "tags")
-  Set<Post> posts;
+  Set<Post> posts = new HashSet<>();
 
   @Embedded
   private Audit audit;

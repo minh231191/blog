@@ -30,12 +30,12 @@ export class MainComponent implements OnInit, PostPageable {
 
   onClickNext(): void {
     const lastPost = this.posts[this.posts.length - 1];
-    this.getPostData(lastPost.id, lastPost.createdDate, Direction.NEXT);
+    this.setPostData(this.getPostData(lastPost.id, lastPost.createdDate, Direction.NEXT));
   }
 
   onClickPrevious(): void {
     const firstPost = this.posts[0];
-    this.getPostData(firstPost.id, firstPost.createdDate, Direction.PREVIOUS);
+    this.setPostData(this.getPostData(firstPost.id, firstPost.createdDate, Direction.PREVIOUS));
   }
 
   getPostData(id: number, date: Date, direction: Direction): Observable<PostPaged> {

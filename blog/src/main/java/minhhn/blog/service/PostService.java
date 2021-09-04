@@ -8,11 +8,12 @@ import minhhn.blog.enums.PaginationDirection;
 import minhhn.blog.enums.PostStatus;
 import minhhn.blog.mapper.PostDisplayMapper;
 import minhhn.blog.mapper.PostMapper;
+import minhhn.blog.mapper.TagMapper;
 import minhhn.blog.model.Category;
 import minhhn.blog.model.Post;
+import minhhn.blog.model.Tag;
 import minhhn.blog.model.base.Audit;
 import minhhn.blog.repository.PostRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -29,11 +30,13 @@ public class PostService {
   private final PostRepository postRepository;
   private final PostMapper postMapper;
   private final PostDisplayMapper postDisplayMapper;
+  private final TagMapper tagMapper;
 
-  public PostService(PostRepository postRepository, PostMapper postMapper, PostDisplayMapper postDisplayMapper) {
+  public PostService(PostRepository postRepository, PostMapper postMapper, PostDisplayMapper postDisplayMapper, TagMapper tagMapper) {
     this.postRepository = postRepository;
     this.postMapper = postMapper;
     this.postDisplayMapper = postDisplayMapper;
+    this.tagMapper = tagMapper;
   }
 
   public PostDto findById(Long id) {
@@ -86,6 +89,8 @@ public class PostService {
     fromDb.setTitle(postDto.getTitle());
     fromDb.setSubtitle(postDto.getSubtitle());
     fromDb.setContent(postDto.getContent());
+    List<Tag> postTag = this.tagMapper.toEntityList(postDto.getTags());
+    postTag.forEach(fromDb::addTag);
     return this.postMapper.toDto(this.postRepository.save(fromDb));
   }
   

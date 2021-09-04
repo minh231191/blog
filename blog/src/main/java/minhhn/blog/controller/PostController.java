@@ -5,7 +5,9 @@ import minhhn.blog.dto.PostFilter;
 import minhhn.blog.dto.PostPagedDto;
 import minhhn.blog.enums.PaginationDirection;
 import minhhn.blog.service.PostService;
+import minhhn.blog.utils.Authorize;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;

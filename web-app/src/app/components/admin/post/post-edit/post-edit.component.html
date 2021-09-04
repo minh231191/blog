@@ -1,0 +1,93 @@
+<div class="container" fxLayout fxLayoutAlign="start">
+  <form [formGroup]="postForm" (ngSubmit)="save()" id="post-form" class="post-form" >
+
+    <div fxLayout="row" class="row">
+      <div fxFlex=6% class="label"><b>Status:</b></div>
+      <div fxFlex=90%>
+        <mat-form-field appearance="outline" class="option">
+          <mat-select formControlName="status">
+            <mat-option *ngFor="let status of postStatuses" [value]="status">
+              {{status}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" class="row">
+      <div fxFlex=6% class="label"><b>Category:</b></div>
+      <div fxFlex=90%>
+        <mat-form-field appearance="outline" class="option">
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let category of categories" [value]="category.id">
+              {{category.name}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div fxLayout="row" class="row">
+      <div fxFlex=30% class="tag-list">
+        <label><b>Available Tags</b></label>
+        <mat-list>
+          <mat-list-item
+            *ngFor=" let tag of availableElements"
+            class="tag {{isInSelectedElements(tag) ? 'active' : ''}}"
+            (click)="toogleActiveElement(tag)"> {{tag.name}}
+          </mat-list-item>
+         </mat-list>
+      </div>
+      <div fxFlex=10%>
+        <div fxLayout="row"><button mat-stroked-button type="button" fxFlex=100% mat-button (click)="moveToTheRight()">&gt;&gt;</button></div>
+        <div fxLayout="row"><button mat-stroked-button type="button" fxFlex=100% mat-button (click)="moveToTheLeft()">&lt;&lt;</button></div>
+      </div>
+      <div fxFlex=30% class="tag-list">
+        <label><b>Post Tags</b></label>
+        <mat-list>
+          <mat-list-item
+            *ngFor=" let tag of addedElements"
+            class="tag {{isInSelectedElements(tag) ? 'active' : ''}}"
+            (click)="toogleActiveElement(tag)"> {{tag.name}}
+          </mat-list-item>
+         </mat-list>
+      </div>
+    </div>
+
+    <div fxLayout="row" class="row">
+      <div fxFlex=6%><b>Author:</b></div>
+      <div fxFlex=90%>
+        <p>{{ currentPost.author }}</p>
+      </div>
+    </div>
+
+    <div fxLayout="row" class="row">
+      <div fxFlex=6%><b>Created Date:</b></div>
+      <div fxFlex=90%>
+        <p>{{ currentPost.createdDate }}</p>
+      </div>
+    </div>
+
+    <div fxLayout="row" class="row">
+      <mat-form-field appearance="standard">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="" formControlName="title">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" class="row">
+      <mat-form-field appearance="standard">
+        <mat-label>Subtitle</mat-label>
+        <input matInput placeholder="" formControlName="subtitle">
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" class="row">
+      <div fxFlex=90%>
+        <app-ckeditor></app-ckeditor>
+      </div>
+    </div>
+
+  </form>
+</div>
+<button mat-button type="submit" form="post-form">Save</button>

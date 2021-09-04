@@ -17,7 +17,7 @@ export class PostService {
   getPostPaged(id: number, date: Date, direction: Direction, postFilter: PostFilter): Observable<PostPaged> {
     const param = {
       id: id.toString(),
-      date: formatDate(date, 'yyyy-MM-dd HH:mm:ss', 'EN-US'),
+      date: formatDate(date, 'yyyy-MM-dd HH:mm:ss.SSS', 'EN-US'),
       direction: direction.toString(),
       categoryId: postFilter.categoryId != null ? postFilter.categoryId.toString() : '',
       userId: postFilter.userId != null ? postFilter.userId.toString() : '',
@@ -27,6 +27,14 @@ export class PostService {
 
   getPostDetailsById(id: number): Observable<PostDetails> {
     return this.http.get<PostDetails>('blog/posts/' + id.toString());
+  }
+
+  updatePost(post: PostDetails): Observable<PostDetails> {
+    return this.http.put<PostDetails>('blog/posts', post);
+  }
+
+  createPost(post: PostDetails): Observable<PostDetails> {
+    return this.http.post<PostDetails>('blog/posts', post);
   }
 
 }

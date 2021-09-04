@@ -1,0 +1,22 @@
+<div class="container" fxLayout fxLayoutAlign="start">
+  <form [formGroup]="tagForm" (ngSubmit)="save()" id="tag-form" class="tag-form" >
+    <div fxLayout="row" class="row">
+      <div fxFlex=12% class="label"><b>Name:</b></div>
+      <div fxFlex=80%>
+        <mat-form-field appearance="outline">
+          <input matInput formControlName="name">
+        </mat-form-field>
+      </div>
+    </div>
+    <div fxLayout="row" class="row">
+      <div fxFlex=12%><b>Created By:</b></div>
+      <div fxFlex=80%>{{ tag.createdBy }}</div>
+    </div>
+    <div fxLayout="row" class="row">
+      <div fxFlex=12% ><b>Created Date:</b></div>
+      <div fxFlex=80%>{{ tag.createdDate }}</div>
+    </div>
+  </form>
+</div>
+<button mat-raised-button color="primary" type="submit" form="tag-form">Save</button>
+

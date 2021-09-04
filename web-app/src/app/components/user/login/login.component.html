@@ -1,0 +1,27 @@
+<div class="container" fxLayout fxLayoutAlign="start">
+  <div fxFlex=30%></div>
+  <div fxFlex=40%>
+    <div class="container" fxLayout fxLayoutAlign="start">
+      <form [formGroup]="loginForm" (ngSubmit)="login()" id="register-form" class="register-form" >
+        <div fxLayout="row" class="row">
+          <div fxFlex=15% class="label"><b>Username:</b></div>
+          <div fxFlex=80%>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="username">
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" class="row">
+          <div fxFlex=15% class="label"><b>Password:</b></div>
+          <div fxFlex=80%>
+            <mat-form-field appearance="outline">
+                <input matInput formControlName="password" type="password">
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </div>
+    <button mat-raised-button color="primary" type="submit" form="register-form">Login</button>
+  </div>
+  <div fxFlex=30%></div>
+</div>

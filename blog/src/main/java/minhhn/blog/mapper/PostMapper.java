@@ -11,6 +11,7 @@ public interface PostMapper extends EntityMapper<PostDto, Post> {
   @Mapping(target = "author", source = "user.name")
   @Mapping(target = "authorId", source = "user.id")
   @Mapping(target = "categoryName", source = "category.name")
+  @Mapping(target = "categoryId", source = "category.id")
   @Mapping(target = "createdDate", source = "audit.createdDate")
   PostDto toDto(Post entity);
 

@@ -1,0 +1,26 @@
+<mat-toolbar>
+  <div fxFlex="95%">
+    <a mat-button [routerLink]='["home"]'>
+      <span>Admin</span>
+    </a>
+  </div>
+
+  <div fxFlex="5%">
+    <a mat-button (click)="logout()">
+      <span>Logout</span>
+    </a>
+  </div>
+</mat-toolbar>
+
+<div class="container"
+     fxLayout
+     fxLayoutAlign="center"
+>
+  <div fxFlex="10%">
+    <app-left-admin></app-left-admin>
+  </div>
+  <div fxFlex="90%">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

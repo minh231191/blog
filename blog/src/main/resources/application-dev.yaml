@@ -1,5 +1,10 @@
 server:
   port: 8081
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_trace_param
+    include-exception: true
 
 spring:
   datasource:
@@ -20,3 +25,6 @@ security:
 management:
   security:
     enabled: false
+
+jwt:
+  secret: 123456
