@@ -73,7 +73,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
   @Override
   protected boolean shouldNotFilter(HttpServletRequest request) {
     boolean isNotNeededNoBeFiltered = PermitApi.PERMIT_APIS.stream()
-        .anyMatch(p -> p.getPath().equals(request.getServletPath()) && p.getMethod().matches(request.getMethod()));
+        .anyMatch(p -> new AntPathMatcher().match(p.getPath(), request.getServletPath()) && p.getMethod().matches(request.getMethod()));
     logger.info(request.getServletPath() + ", needed to be filtered: " + !isNotNeededNoBeFiltered);
     return isNotNeededNoBeFiltered;
   }

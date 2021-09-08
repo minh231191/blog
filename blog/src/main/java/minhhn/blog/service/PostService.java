@@ -1,5 +1,6 @@
 package minhhn.blog.service;
 
+import io.jsonwebtoken.lang.Collections;
 import minhhn.blog.dto.PostDisplayDto;
 import minhhn.blog.dto.PostDto;
 import minhhn.blog.dto.PostFilter;
@@ -50,6 +51,9 @@ public class PostService {
   public PostPagedDto getPostsPaged(Long id, LocalDateTime date, PaginationDirection direction, PostFilter filter) {
     PostPagedDto postPagedDto = new PostPagedDto();
     List<PostDisplayDto> posts = this.getPostsList(id, date, direction, filter);
+    if (Collections.isEmpty(posts)) {
+      return postPagedDto;
+    }
     postPagedDto.setPosts(posts);
     postPagedDto.setFirstPage(!this.existsByIdGreaterThan(posts.get(0).getId(), filter));
     int postSize = posts.size();

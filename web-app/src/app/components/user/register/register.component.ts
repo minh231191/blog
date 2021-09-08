@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
     user.name = this.registerForm.get('name')?.value;
     user.username = this.registerForm.get('username')?.value;
     user.password = this.registerForm.get('password')?.value;
-    this.userService.createUser(user).subscribe(
+    this.userService.register(user).subscribe(
       success => {
         alert('Success!');
         this.router.navigate(['']);

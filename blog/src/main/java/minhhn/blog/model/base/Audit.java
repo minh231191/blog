@@ -7,9 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
@@ -17,12 +16,14 @@ import java.time.LocalDateTime;
 @Embeddable
 public class Audit {
 
+  @Column(columnDefinition = "timestamp(3)")
   @CreatedDate
   private LocalDateTime createdDate;
 
   @CreatedBy
   private String createdBy;
 
+  @Column(columnDefinition = "timestamp(3)")
   @LastModifiedDate
   private LocalDateTime updatedDate;
 

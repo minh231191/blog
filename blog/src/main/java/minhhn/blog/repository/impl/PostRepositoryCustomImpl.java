@@ -25,13 +25,13 @@ public class PostRepositoryCustomImpl implements PostRepositoryCustom {
       "FROM " +
       "(" +
       "   SELECT " +
-      "       p.*," +
-      "       ROW_NUMBER() OVER (ORDER BY p.CREATED_DATE %1$s, p.ID %2$s) rn" +
+      "       p.*, " +
+      "       ROW_NUMBER() OVER (ORDER BY p.CREATED_DATE %1$s, p.ID %2$s) rn " +
       "   FROM BL_POST p" +
       "   WHERE %5$s (p.ID %3$s :id OR p.CREATED_DATE %4$s :date)" +
-      ")" +
+      ") AS all_posts " +
       "WHERE rn <= :postPerPage" +
-      ") ORDER BY created_date desc, id desc";
+      ") AS paged_post ORDER BY created_date desc, id desc";
 
   @PersistenceContext
   private EntityManager entityManager;

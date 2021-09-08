@@ -18,7 +18,8 @@ public class PermitApi {
         new ApiDto("/api/authenticate", HttpMethod.POST),
         new ApiDto("/api/categories/with-sub", HttpMethod.GET),
         new ApiDto("/api/posts", HttpMethod.GET),
-        new ApiDto("/api/posts/*", HttpMethod.GET)
+        new ApiDto("/api/posts/*", HttpMethod.GET),
+        new ApiDto("/api/users/register", HttpMethod.POST)
     );
   }
 
