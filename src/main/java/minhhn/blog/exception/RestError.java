@@ -1,5 +1,6 @@
 package minhhn.blog.exception;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
 
@@ -16,6 +17,7 @@ public class RestError {
     this.path = path;
   }
 
+  @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
   private final LocalDateTime timestamp = LocalDateTime.now();
   private final HttpStatus status;
   private final String code;

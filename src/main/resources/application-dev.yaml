@@ -16,6 +16,9 @@ spring:
       ddl-auto: update
     security:
       enabled: false
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
 
 security:
   basic:

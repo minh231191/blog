@@ -68,6 +68,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .mvcMatchers(HttpMethod.POST, "/api/users/register").permitAll()
         .mvcMatchers(HttpMethod.GET, "/api/posts", "api/posts/*").permitAll()
         .mvcMatchers(HttpMethod.GET, "/api/categories/with-sub").permitAll()
+        .mvcMatchers(HttpMethod.GET, "/api/tags").permitAll()
         .anyRequest().authenticated()
         .and().exceptionHandling().authenticationEntryPoint(this.jwtAuthenticationEntryPoint)
         .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -47,7 +47,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(value = { Exception.class })
-  public ResponseEntity<Object> handleBadCredentialsException(Exception ex, HttpServletRequest request) {
+  public ResponseEntity<Object> handleUnexpectedException(Exception ex, HttpServletRequest request) {
     logger.error(ex);
     ex.printStackTrace();
     return new ResponseEntity<>(this.constructRestError(ex, request, HttpStatus.INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR_CODE), HttpStatus.INTERNAL_SERVER_ERROR);

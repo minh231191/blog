@@ -3,7 +3,7 @@ package minhhn.blog.authentication;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.slf4j.Slf4j;
 import minhhn.blog.exception.JwtTokenException;
-import minhhn.blog.utils.PermitApi;
+import minhhn.blog.utils.PermittedApi;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -72,7 +72,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 
   @Override
   protected boolean shouldNotFilter(HttpServletRequest request) {
-    boolean isNotNeededNoBeFiltered = PermitApi.PERMIT_APIS.stream()
+    boolean isNotNeededNoBeFiltered = PermittedApi.PERMIT_APIS.stream()
         .anyMatch(p -> new AntPathMatcher().match(p.getPath(), request.getServletPath()) && p.getMethod().matches(request.getMethod()));
     logger.info(request.getServletPath() + ", needed to be filtered: " + !isNotNeededNoBeFiltered);
     return isNotNeededNoBeFiltered;

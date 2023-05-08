@@ -73,6 +73,9 @@ public class PostService {
     if (postFilter.getUserId() != null) {
       postSpecification = postSpecification.and(Specification.where(userIdEqual(postFilter.getUserId())));
     }
+    if (postFilter.getTagId() != null) {
+      postSpecification = postSpecification.and(Specification.where(tagIdEqual(postFilter.getTagId())));
+    }
     return this.postRepository.count(postSpecification) > 0;
   }
 
@@ -84,6 +87,9 @@ public class PostService {
     if (postFilter.getUserId() != null) {
       postSpecification = postSpecification.and(Specification.where(userIdEqual(postFilter.getUserId())));
     }
+    if (postFilter.getTagId() != null) {
+      postSpecification = postSpecification.and(Specification.where(tagIdEqual(postFilter.getTagId())));
+    }
     return this.postRepository.count(postSpecification) > 0;
   }
 
@@ -93,6 +99,11 @@ public class PostService {
     fromDb.setTitle(postDto.getTitle());
     fromDb.setSubtitle(postDto.getSubtitle());
     fromDb.setContent(postDto.getContent());
+    if (postDto.getCategoryId() != null) {
+      Category category = new Category();
+      category.setId(postDto.getCategoryId());
+      fromDb.setCategory(category);
+    }
     List<Tag> postTag = this.tagMapper.toEntityList(postDto.getTags());
     postTag.forEach(fromDb::addTag);
     return this.postMapper.toDto(this.postRepository.save(fromDb));

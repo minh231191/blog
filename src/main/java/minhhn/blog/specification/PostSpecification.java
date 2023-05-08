@@ -1,10 +1,12 @@
 package minhhn.blog.specification;
 
-import minhhn.blog.model.Category;
 import minhhn.blog.model.Post;
 import org.springframework.data.jpa.domain.Specification;
 
-import javax.persistence.criteria.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 public class PostSpecification {
 
@@ -33,4 +35,7 @@ public class PostSpecification {
     return (post, criteriaQuery, criteriaBuilder) -> criteriaBuilder.equal(post.get(USER).get(ID), userId);
   }
 
+  public static Specification<Post> tagIdEqual(Long tagId) {
+    return (root, query, criteriaBuilder) -> criteriaBuilder.equal(root.join("tags").get(ID), tagId);
+  }
 }

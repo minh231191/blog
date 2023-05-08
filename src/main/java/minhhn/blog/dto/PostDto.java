@@ -1,10 +1,10 @@
 package minhhn.blog.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
 @Data
 public class PostDto {
@@ -18,6 +18,8 @@ public class PostDto {
   private Long authorId;
   private String categoryName;
   private Long categoryId;
+
+  @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
   private LocalDateTime createdDate;
   private List<TagDto> tags;
 

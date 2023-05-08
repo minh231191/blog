@@ -5,11 +5,11 @@ import org.springframework.http.HttpMethod;
 
 import java.util.List;
 
-public class PermitApi {
+public class PermittedApi {
 
   public static final List<ApiDto> PERMIT_APIS;
 
-  private PermitApi() {
+  private PermittedApi() {
 
   }
 
@@ -19,7 +19,8 @@ public class PermitApi {
         new ApiDto("/api/categories/with-sub", HttpMethod.GET),
         new ApiDto("/api/posts", HttpMethod.GET),
         new ApiDto("/api/posts/*", HttpMethod.GET),
-        new ApiDto("/api/users/register", HttpMethod.POST)
+        new ApiDto("/api/users/register", HttpMethod.POST),
+        new ApiDto("/api/tags", HttpMethod.GET)
     );
   }
 
